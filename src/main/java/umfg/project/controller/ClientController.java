@@ -1,6 +1,8 @@
 package umfg.project.controller;
 
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import umfg.project.entity.Client;
@@ -11,6 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/clients")
 public class ClientController {
+
+    private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
 
     @Autowired
     ClientRepository clientRepository;
@@ -27,6 +31,7 @@ public class ClientController {
 
     @GetMapping("/{clientId}")
     public Client getOneClient(@PathVariable Long clientId) {
+        logger.info("Busca por cliente específico realizada");
         return clientRepository.findById(clientId)
                 .orElseThrow(() -> new RuntimeException("Client not found"));
     }
@@ -39,6 +44,7 @@ public class ClientController {
         client.setCity(updated.getCity());
         client.setAddress(updated.getAddress());
         client.setEstablishmentType(updated.getEstablishmentType());
+
         return clientRepository.save(client);
     }
 

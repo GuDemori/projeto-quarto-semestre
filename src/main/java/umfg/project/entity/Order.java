@@ -9,18 +9,19 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "order_entity")
 public class Order {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
 
     @ManyToOne
-    private User user; // The user who created the order
+    private User user;
 
     @ManyToOne
     private Client client;
 
     private LocalDateTime orderDate;
     private Double totalValue;
-    private String status; // waiting_confirmation, in_preparation, waiting_delivery, delivered
+    private String status;
 
     @ManyToMany
     private List<Product> products;

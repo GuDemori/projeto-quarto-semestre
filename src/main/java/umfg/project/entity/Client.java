@@ -5,20 +5,26 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 @Entity
 @Table(name = "client_entity")
 public class Client {
-    @Id @GeneratedValue
+
+    @Id
+    @GeneratedValue
     private Long id;
 
-    @NotBlank(message = "Establishment name cannot be blank")
+    @NotBlank(message = "Nome do estabelecimento não pode estar em branco")
     private String establishmentName;
 
-    @NotBlank
+    @NotBlank(message = "cidade é um campo obrigatório")
     private String city;
     private String address;
+
+    @NotBlank(message = "O tipo de estabelecimento é um campo obrigatório")
     private String establishmentType;
 
     public Long getId() { return id; }
