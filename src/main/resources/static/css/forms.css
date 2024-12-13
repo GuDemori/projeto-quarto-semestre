@@ -1,0 +1,35 @@
+/* Formulários */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+input[type="text"], input[type="number"], textarea {
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    width: 100%;
+    max-width: 400px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #D32F2F;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    width: 100%;
+    max-width: 400px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #B71C1C;
+}

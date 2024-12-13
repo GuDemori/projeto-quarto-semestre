@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Visualizar Clientes</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/tables.css}">
+</head>
+<body>
+<div th:if="${successMessage}" class="popup popup-success" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="popup popup-error" th:text="${errorMessage}"></div>
+
+<div class="container">
+  <h1>Lista de Clientes</h1>
+
+  <!-- Tabela de Clientes -->
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome do Estabelecimento</th>
+      <th>Cidade</th>
+      <th>Endereço</th>
+      <th>Tipo de Estabelecimento</th>
+      <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="client : ${clients}">
+      <td th:text="${client.id}"></td>
+      <td th:text="${client.establishmentName}"></td>
+      <td th:text="${client.city}"></td>
+      <td th:text="${client.address}"></td>
+      <td th:text="${client.establishmentType}"></td>
+      <td class="action-buttons">
+        <a th:href="@{/clients/edit/{id}(id=${client.id})}" class="btn-edit">Editar</a>
+      <td class="action-buttons">
+        <a th:href="@{/clients/delete/confirm/{id}(id=${client.id})}" class="btn-delete">Excluir</a>
+      </td>
+
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="button-group">
+    <a href="/user/dashboard" class="btn">Voltar ao Dashboard</a>
+  </div>
+</div>
+</body>
+</html>

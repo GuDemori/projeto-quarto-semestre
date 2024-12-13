@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Confirmação de Exclusão</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/forms.css}">
+</head>
+<body>
+<div class="container">
+  <h1>Confirmar Exclusão</h1>
+  <p>Tem certeza de que deseja excluir o cliente <strong th:text="${client.establishmentName}"></strong>?</p>
+
+  <div class="button-group">
+    <!-- Botão para confirmar exclusão -->
+    <form th:action="@{/clients/delete/{id}(id=${client.id})}" method="post">
+      <input type="hidden" name="_method" value="delete" />
+      <button type="submit" class="btn btn-delete">Sim, Excluir</button>
+    </form>
+
+    <!-- Botão para cancelar -->
+    <a th:href="@{/clients/view}" class="btn">Cancelar</a>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Produto</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/forms.css}">
+    <script th:src="@{/js/script.js}"></script>
+</head>
+<body>
+<div th:if="${successMessage}" class="popup popup-success" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="popup popup-error" th:text="${errorMessage}"></div>
+
+<div class="container">
+    <h1>Criar Produto</h1>
+    <form method="post" action="/products/add">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name" maxlength="255" required />
+
+        <label for="description">Descrição:</label>
+        <textarea id="description" name="description" maxlength="255" required></textarea>
+
+        <label for="stockQuantity">Quantidade em Estoque:</label>
+        <input type="number" id="stockQuantity" name="stockQuantity" min="0" required />
+
+        <label for="establishmentType">Tipo de Estabelecimento:</label>
+        <input type="text" id="establishmentType" name="establishmentType" maxlength="255" required />
+
+        <label for="price">Preço:</label>
+        <input type="number" id="price" name="price" step="0.01" required />
+
+        <button type="submit">Criar Produto</button>
+    </form>
+</div>
+</body>
+</html>

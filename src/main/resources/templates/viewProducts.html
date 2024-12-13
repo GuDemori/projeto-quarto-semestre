@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Visualizar Produtos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/tables.css}">
+    <script th:src="@{/js/script.js}"></script>
+</head>
+<body>
+<div th:if="${successMessage}" class="popup popup-success" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="popup popup-error" th:text="${errorMessage}"></div>
+
+<div class="container">
+    <h1>Lista de Produtos</h1>
+
+    <!-- Formulário de busca -->
+    <form method="get" action="/products/view">
+        <label for="search">Buscar Produto:</label>
+        <input type="text" id="search" name="search" placeholder="Digite nome ou ID" />
+        <button type="submit">Buscar</button>
+    </form>
+
+    <!-- Exibir mensagens de sucesso ou erro -->
+    <div th:if="${successMessage}" class="popup popup-success" th:text="${successMessage}"></div>
+    <div th:if="${errorMessage}" class="popup popup-error" th:text="${errorMessage}"></div>
+
+    <!-- Tabela de produtos -->
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th>Preço</th>
+            <th>Tipo de Estabelecimento</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${products}">
+            <td th:text="${product.id}"></td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.description}"></td>
+            <td th:text="${product.stockQuantity}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${product.establishmentType}"></td>
+            <td class="action-buttons">
+                <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn-edit">Editar</a>
+                <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn-delete">Excluir</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Link para voltar ao Dashboard -->
+    <div class="button-group">
+        <a href="/user/dashboard" class="btn">Voltar ao Dashboard</a>
+    </div>
+</div>
+</body>
+</html>

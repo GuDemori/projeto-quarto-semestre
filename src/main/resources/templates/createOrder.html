@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Criar Pedido</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <script th:src="@{/js/order.js}"></script>
+</head>
+<body>
+<div class="container">
+  <div th:if="${errorMessage}" class="popup popup-error" th:text="${errorMessage}"></div>
+  <h1>Criar Pedido</h1>
+  <div th:if="${errorMessage}" class="popup popup-error" th:text="${errorMessage}"></div>
+
+  <form th:action="@{/orders/create}" method="post" id="orderForm">
+    <label for="client">Cliente:</label>
+    <select id="client" name="client.id" required>
+      <option value="" disabled selected>Selecione um cliente</option>
+      <option th:each="client : ${clients}" th:value="${client.id}" th:text="${client.establishmentName}"></option>
+    </select>
+
+    <label for="products">Produtos:</label>
+    <select id="products" name="products[0].id" multiple required>
+      <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.name + ' - R$ ' + product.price}"></option>
+    </select>
+
+    <label for="status">Status:</label>
+    <select id="status" name="status" required>
+      <option value="" disabled selected>Selecione um status</option>
+      <option th:each="status : ${statuses}" th:value="${status}" th:text="${status}"></option>
+    </select>
+
+    <button type="button" id="submitOrder">Criar Pedido</button>
+  </form>
+</div>
+</body>
+</html>

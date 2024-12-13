@@ -1,0 +1,63 @@
+/* Botões no Dashboard */
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.button-group .btn {
+    display: block;
+    padding: 12px 20px;
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff; /* Azul principal */
+    border-radius: 8px; /* Cantos arredondados */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button-group .btn:hover {
+    background-color: #0056b3; /* Azul mais escuro */
+    transform: scale(1.05); /* Pequeno zoom no hover */
+}
+
+/* Links adicionais (Criar e Visualizar) */
+.button-group .link-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    font-size: 14px;
+}
+
+.button-group .link-group a {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: #4caf50; /* Verde para Criar */
+    padding: 10px 15px;
+    background-color: #e8f5e9;
+    border: 1px solid #4caf50;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.button-group .link-group a:hover {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+/* Remover borda e exibição padrão de opções */
+.options {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    display: none; /* Oculto por padrão */
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}

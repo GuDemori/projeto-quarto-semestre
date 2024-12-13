@@ -12,17 +12,18 @@ import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "user_entity")
 public class User {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private Long id;
 
-    @NotBlank(message = "Username cannot be blank")
+    @NotBlank(message = "Username não pode estar em branco")
     private String username;
 
-    @Size(min = 6, message = "Password must have at least 6 characters")
+    @Size(min = 8, message = "A senha deve possuir ao menos 8 cara")
     private String password;
 
-    @NotBlank(message = "Full name cannot be blank")
-    @Pattern(regexp = "^[^\\d]+$", message = "Full name cannot contain digits")
+    @NotBlank(message = "Nome completo não pode estar em branco")
+    @Pattern(regexp = "^[^\\d]+$", message = "Nome completo não deve possuir dígitos")
     private String fullName;
 
     public Long getId() { return id; }

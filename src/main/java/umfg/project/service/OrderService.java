@@ -18,26 +18,38 @@ public class OrderService {
     @Autowired
     private ProductRepository productRepo;
 
-    public Order concludeOrder(Order o) {
-        o.setOrderDate(LocalDateTime.now());
-        double total = o.getProducts().stream().mapToDouble(Product::getPrice).sum();
-        o.setTotalValue(total);
+    public Order concludeOrder(Order order) {
+        order.setOrderDate(LocalDateTime.now());
 
-        // Check stock
-        for (Product prod : o.getProducts()) {
-            if (prod.getStockQuantity() <= 0) {
-                throw new RuntimeException("Product " + prod.getName() + " is out of stock.");
+        // Calcular o valor total do pedido
+        double total = order.getProducts().stream()
+                .mapToDouble(Product::getPrice)
+                .sum();
+        order.setTotalValue(total);
+
+        // Verificar o estoque de todos os produtos no pedido
+        for (Product product : order.getProducts()) {
+            Product storedProduct = productRepo.findById(product.getId())
+                    .orElseThrow(() -> new RuntimeException("Produto " + product.getName() + " não encontrado"));
+
+            if (storedProduct.getStockQuantity() < 1) {
+                throw new RuntimeException("Estoque insuficiente para o produto: " + storedProduct.getName());
             }
         }
 
-        Order saved = orderRepo.save(o);
+        // Salvar o pedido
+        Order savedOrder = orderRepo.save(order);
 
-        // Debit stock
-        for (Product prod : o.getProducts()) {
-            prod.setStockQuantity(prod.getStockQuantity() - 1);
-            productRepo.save(prod);
+        // Atualizar o estoque dos produtos
+        for (Product product : order.getProducts()) {
+            Product storedProduct = productRepo.findById(product.getId())
+                    .orElseThrow(() -> new RuntimeException("Produto " + product.getName() + " não encontrado"));
+
+            // Debitar o estoque
+            storedProduct.setStockQuantity(storedProduct.getStockQuantity() - 1);
+            productRepo.save(storedProduct);
         }
 
-        return saved;
+        return savedOrder;
     }
 }

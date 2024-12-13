@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Doces Giacomini</title>
+  <link rel="stylesheet" th:href="@{/css/dashboard.css}">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <script th:src="@{/js/script.js}"></script>
+</head>
+<body>
+<div th:if="${successMessage}" class="popup popup-success" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="popup popup-error" th:text="${errorMessage}"></div>
+
+<div class="container">
+  <header>
+    <h1>Bem-vindo à Doces Giacomini</h1>
+    <p>Escolha uma das opções abaixo:</p>
+  </header>
+
+  <div class="button-group">
+    <!-- Botão para Produtos -->
+    <button class="btn toggle-btn" onclick="toggleOptions('product-options')">Produtos</button>
+    <div id="product-options" class="link-group">
+      <a href="/products/create" class="link-btn">Criar</a>
+      <a href="/products/view" class="link-btn">Visualizar</a>
+    </div>
+
+    <!-- Botão para Clientes -->
+    <button class="btn toggle-btn" onclick="toggleOptions('client-options')">Clientes</button>
+    <div id="client-options" class="link-group">
+      <a href="/clients/create" class="link-btn">Criar</a>
+      <a href="/clients/view" class="link-btn">Visualizar</a>
+    </div>
+
+    <!-- Botão para Pedidos -->
+    <button class="btn toggle-btn" onclick="toggleOptions('order-options')">Pedidos</button>
+    <div id="order-options" class="link-group">
+      <a href="/orders/create" class="link-btn">Criar</a>
+      <a href="/orders/view" class="link-btn">Visualizar</a>
+    </div>
+  </div>
+</div>
+<script>
+  function toggleOptions(optionId) {
+      const options = document.querySelectorAll('.link-group');
+      options.forEach(option => {
+          if (option.id === optionId) {
+              option.style.display = option.style.display === 'flex' ? 'none' : 'flex';
+          } else {
+              option.style.display = 'none';
+          }
+      });
+  }
+</script>
+</body>
+</html>

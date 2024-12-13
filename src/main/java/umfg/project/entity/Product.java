@@ -4,36 +4,47 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "product_entity")
 public class Product {
-    @Id @GeneratedValue
+
+    @Id
+    @GeneratedValue
     private Long id;
 
-    private String image;
-
-    @NotBlank(message = "Product name cannot be blank")
+    @NotBlank(message = "O campo nome é obrigatório.")
+    @Size(max = 255, message = "O nome não pode exceder 255 caracteres.")
     private String name;
 
+    @Size(max = 255, message = "A descrição não pode exceder 255 caracteres.")
     private String description;
 
-    @NotNull(message = "Stock quantity cannot be null")
-    private Integer stockQuantity;
-
+    @Size(max = 255, message = "O tipo de estabelecimento não pode exceder 255 caracteres.")
     private String establishmentType;
 
-    @NotNull(message = "Price cannot be null")
+
+    @NotNull(message = "A quantidade em estoque não pode ser nula.")
+    @Min(value = 0, message = "A quantidade não pode ser menor que zero")
+    private int stockQuantity;
+
+    @NotNull(message = "O preço não pode ser nulo.")
+    @DecimalMin(value = "0.0", inclusive = true, message = "O preço não pode ser menor que 0")
     private Double price;
+
+    public Product(String name, String description, Integer stockQuantity, String establishmentType, Double price) {
+        this.name = name;
+        this.description = description;
+        this.stockQuantity = stockQuantity;
+        this.establishmentType = establishmentType;
+        this.price = price;
+    }
+
+    public Product() {}
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
-
-    public String getImage() { return image; }
-    public void setImage(String image) { this.image = image; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }

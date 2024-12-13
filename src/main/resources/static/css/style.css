@@ -1,0 +1,64 @@
+/* Corpo principal */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container principal */
+.container {
+    max-width: 1000px;
+    width: 90%;
+    margin: 20px auto;
+    padding: 30px 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* Títulos */
+h1, h2 {
+    color: #333;
+}
+
+h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+/* Mensagem no canto superior direito */
+.popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #4caf50; /* Verde para mensagens de sucesso */
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+    z-index: 1000;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 0; /* Começa invisível */
+    transform: translateY(-20px); /* Efeito de slide para baixo */
+}
+
+.popup.show {
+    opacity: 1; /* Torna visível */
+    transform: translateY(0); /* Move para a posição final */
+}
+
+.popup-error {
+    background-color: #f44336; /* Vermelho para mensagens de erro */
+}

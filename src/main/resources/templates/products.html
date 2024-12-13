@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Produto - Doces Giacomini</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:src="@{/js/script.js}"></script>
+</head>
+<body>
+<div th:if="${successMessage}" class="popup popup-success" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="popup popup-error" th:text="${errorMessage}"></div>
+
+<div class="container">
+    <header>
+        <h1>Detalhes do Produto</h1>
+        <nav>
+            <a th:href="@{/products}">Voltar para Lista de Produtos</a>
+        </nav>
+    </header>
+
+    <div class="product-details">
+        <img th:src="${product.image}" alt="Imagem do produto" style="max-width: 300px;">
+        <h2 th:text="${product.name}"></h2>
+        <p th:text="${product.description}"></p>
+        <p><strong>Preço:</strong> <span th:text="${#numbers.formatDecimal(product.price, 2, '.')}"></span></p>
+        <p><strong>Estoque:</strong> <span th:text="${product.stockQuantity}"></span></p>
+    </div>
+</div>
+</body>
+</html>

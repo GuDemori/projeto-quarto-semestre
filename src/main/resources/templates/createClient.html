@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Criar Cliente</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/forms.css}">
+</head>
+<body>
+<!-- Mensagens de sucesso e erro -->
+<div th:if="${successMessage}" class="popup popup-success" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="popup popup-error" th:text="${errorMessage}"></div>
+
+<div class="container">
+    <h1>Criar Cliente</h1>
+    <form method="post" action="/clients/create">
+        <label for="establishmentName">Nome do Estabelecimento:</label>
+        <input type="text" id="establishmentName" name="establishmentName" required maxlength="255" />
+
+        <label for="city">Cidade:</label>
+        <input type="text" id="city" name="city" required maxlength="255" />
+
+        <label for="address">Endereço:</label>
+        <input type="text" id="address" name="address" maxlength="255" />
+
+        <label for="establishmentType">Tipo de Estabelecimento:</label>
+        <input type="text" id="establishmentType" name="establishmentType" required maxlength="255" />
+
+        <button type="submit">Criar Cliente</button>
+    </form>
+
+    <div class="button-group">
+        <a href="/clients/view" class="btn">Voltar</a>
+    </div>
+</div>
+</body>
+</html>

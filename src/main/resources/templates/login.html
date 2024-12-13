@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login - Doces Giacomini</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}"/>
+  <script th:src="@{/js/script.js}"></script>
+</head>
+<body>
+<div th:if="${successMessage}" class="popup popup-success" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="popup popup-error" th:text="${errorMessage}"></div>
+
+<div class="container">
+  <img class="logo" th:src="@{/img/logo_doces_giacomini.jpeg}" alt="Logo Doces Giacomini"/>
+  <h2>Acesse sua conta</h2>
+  <div class="popup popup-error" th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
+  <form method="post" th:action="@{/user/login}">
+    <input type="text" name="username" placeholder="Username" id="loginUsername" required />
+    <input type="password" name="password" placeholder="Senha" id="loginPassword" required />
+    <button type="submit">Login</button>
+  </form>
+  <a th:href="@{/user/register}">Não tem conta? Registre-se</a>
+  <a th:href="@{/products}" class="view-products-link">Visualizar Produtos</a>
+</div>
+</body>
+</html>
