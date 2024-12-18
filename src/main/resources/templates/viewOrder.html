@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>DETALHES DO PEDIDO</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/orderDetails.css}">
+</head>
+<body>
+<div class="container">
+  <h1>DETALHES DO PEDIDO</h1>
+
+  <!-- Informações gerais do pedido -->
+  <div class="order-info">
+    <p><strong>ID:</strong> <span th:text="${order.id}"></span></p>
+    <p><strong>Data:</strong> <span th:text="${order.orderDate}"></span></p>
+    <p><strong>Total:</strong> R$ <span th:text="${order.totalValue}"></span></p>
+  </div>
+
+  <!-- Lista de itens do pedido -->
+  <div class="order-items">
+    <h3>Itens do Pedido:</h3>
+    <table>
+      <thead>
+      <tr>
+        <th>Produto</th>
+        <th>Quantidade</th>
+        <th>Preço Unitário</th>
+        <th>Subtotal</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="item : ${order.items}">
+        <td th:text="${item.product.name}">Nome do Produto</td>
+        <td th:text="${item.quantity}">Quantidade</td>
+        <td th:text="|R$ ${item.product.price}|">Preço Unitário</td>
+        <td th:text="|R$ ${item.quantity * item.product.price}|">Subtotal</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Botões de ação -->
+  <div class="actions">
+    <a th:href="@{'/orders/edit/' + ${order.id}}" class="edit-btn">Editar</a>
+    <a th:href="@{'/orders/delete/' + ${order.id}}" class="delete-btn"
+       onclick="return confirm('Deseja excluir este pedido?');">Excluir</a>
+    <a th:href="@{/orders/list}" class="back-btn">Voltar</a>
+  </div>
+</div>
+</body>
+</html>

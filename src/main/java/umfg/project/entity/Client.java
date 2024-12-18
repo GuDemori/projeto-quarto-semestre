@@ -1,32 +1,48 @@
 package umfg.project.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import jakarta.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "client_entity")
 public class Client {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "Nome do estabelecimento não pode estar em branco")
+    @NotBlank(message = "O nome do estabelecimento não pode estar em branco.")
+    @Size(max = 255, message = "O nome do estabelecimento não pode exceder 255 caracteres.")
     private String establishmentName;
 
-    @NotBlank(message = "cidade é um campo obrigatório")
+    @NotBlank(message = "A cidade é um campo obrigatório.")
+    @Size(max = 255, message = "A cidade não pode exceder 255 caracteres.")
     private String city;
+
+    @Size(max = 255, message = "O endereço não pode exceder 255 caracteres.")
     private String address;
 
-    @NotBlank(message = "O tipo de estabelecimento é um campo obrigatório")
-    private String establishmentType;
+    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "client_establishment_type",
+            joinColumns = @JoinColumn(name = "client_id"),
+            inverseJoinColumns = @JoinColumn(name = "establishment_type_id")
+    )
+    private List<EstablishmentType> establishmentTypes;
 
+    // Construtor padrão
+    public Client() {}
+
+    // Construtor parametrizado
+    public Client(String establishmentName, String city, String address) {
+        this.establishmentName = establishmentName;
+        this.city = city;
+        this.address = address;
+    }
+
+    // Getters e Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
@@ -39,6 +55,8 @@ public class Client {
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
 
-    public String getEstablishmentType() { return establishmentType; }
-    public void setEstablishmentType(String establishmentType) { this.establishmentType = establishmentType; }
+    public List<EstablishmentType> getEstablishmentTypes() { return establishmentTypes; }
+    public void setEstablishmentTypes(List<EstablishmentType> establishmentTypes) {
+        this.establishmentTypes = establishmentTypes;
+    }
 }

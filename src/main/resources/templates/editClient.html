@@ -13,19 +13,27 @@
 <div class="container">
     <h1>Editar Cliente</h1>
     <form th:action="@{/clients/edit/{id}(id=${client.id})}" method="post">
-    <input type="hidden" name="_method" value="put" />
-
         <label for="establishmentName">Nome do Estabelecimento:</label>
-        <input type="text" id="establishmentName" name="establishmentName" th:value="${client.establishmentName}" required maxlength="255" />
+        <input type="text" id="establishmentName" name="establishmentName" th:value="${client.establishmentName}" required>
 
         <label for="city">Cidade:</label>
-        <input type="text" id="city" name="city" th:value="${client.city}" required maxlength="255" />
+        <input type="text" id="city" name="city" th:value="${client.city}" required>
 
         <label for="address">Endereço:</label>
-        <input type="text" id="address" name="address" th:value="${client.address}" maxlength="255" />
+        <input type="text" id="address" name="address" th:value="${client.address}" required>
 
-        <label for="establishmentType">Tipo de Estabelecimento:</label>
-        <input type="text" id="establishmentType" name="establishmentType" th:value="${client.establishmentType}" required maxlength="255" />
+        <div>
+            <p>Selecione o Tipo de Estabelecimento:</p>
+            <div th:each="type : ${establishmentTypes}">
+                <label>
+                    <input type="checkbox" name="establishmentTypeIds"
+                           th:value="${type.id}"
+                           th:checked="${client.establishmentTypes != null and client.establishmentTypes.contains(type)}">
+                    <span th:text="${type.name}"></span>
+                </label>
+            </div>
+        </div>
+
 
         <button type="submit">Salvar Alterações</button>
     </form>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Seleção de Produtos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/selectProducts.css}">
+</head>
+<body>
+<div class="product-selection-container">
+    <h1 th:if="${editingOrder}" th:text="'EDITAR PEDIDO # ' + ${editingOrder.id}"></h1>
+    <h1 th:if="${editingOrder == null}">CRIAR PEDIDO</h1>
+
+    <form method="post" th:action="@{/orders/preview-products}">
+        <input type="hidden" name="orderId" th:value="${editingOrder?.id}" />
+
+        <label for="clientSelect">Selecione o Cliente:</label>
+        <select id="clientSelect" name="clientId" required>
+            <option value="" disabled>Escolha um cliente</option>
+            <option th:each="client : ${clients}"
+                    th:value="${client.id}"
+                    th:text="${client.establishmentName}"
+                    th:selected="${editingOrder != null} ? ${editingOrder.client.id} == ${client.id} : false">
+            </option>
+        </select>
+
+        <label for="statusSelect">Status:</label>
+        <select id="statusSelect" name="status">
+            <option value="Em espera" th:selected="${editingOrder != null} ? ${editingOrder.status} == 'Em espera' : false">Em espera</option>
+            <option value="À caminho" th:selected="${editingOrder != null} ? ${editingOrder.status} == 'À caminho' : false">À caminho</option>
+            <option value="Entregue" th:selected="${editingOrder != null} ? ${editingOrder.status} == 'Entregue' : false">Entregue</option>
+        </select>
+
+        <h3>Selecione os Produtos:</h3>
+        <form method="post" th:action="@{/orders/preview-products}">
+            <div th:each="product : ${products}">
+                <label>
+                    <input type="checkbox" name="products" th:value="${product.id}">
+                    <span th:text="${product.name}"></span> -
+                    <span th:text="|$${product.price}|"></span>
+                </label>
+                <br>
+            </div>
+            <button type="submit">Confirm Selection</button>
+        </form>
+
+
+
+
+        <button type="submit" class="confirm-button">Confirmar Seleção</button>
+    </form>
+</div>
+</body>
+</html>

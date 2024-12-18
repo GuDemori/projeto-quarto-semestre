@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Editar Tipo de Estabelecimento</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/forms.css}">
+  <script src="/js/script.js" defer></script>
+</head>
+<body>
+<div class="container">
+  <h1>Editar Tipo de Estabelecimento</h1>
+  <form th:action="@{'/establishment-types/edit/' + ${type.id}}" method="post">
+    <div class="content-wrapper">
+      <label for="name">Nome:</label>
+      <input type="text" id="name" name="name" th:value="${type.name}" required />
+    </div>
+    <div class="delete-form">
+      <button type="submit" class="btn-delete">Salvar Alterações</button>
+      <a th:href="@{/establishment-types/view}" class="btn-cancel">Cancelar</a>
+    </div>
+  </form>
+</div>
+
+<!-- Popups -->
+<div th:if="${successMessage}" class="popup popup-success" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="popup popup-error" th:text="${errorMessage}"></div>
+</body>
+</html>

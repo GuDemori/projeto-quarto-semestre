@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard - Doces Giacomini</title>
-  <link rel="stylesheet" th:href="@{/css/dashboard.css}">
   <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/dashboard.css}">
   <script th:src="@{/js/script.js}"></script>
 </head>
 <body>
@@ -37,7 +37,14 @@
     <button class="btn toggle-btn" onclick="toggleOptions('order-options')">Pedidos</button>
     <div id="order-options" class="link-group">
       <a href="/orders/create" class="link-btn">Criar</a>
-      <a href="/orders/view" class="link-btn">Visualizar</a>
+      <a href="/orders/list" class="link-btn">Visualizar</a>
+    </div>
+
+    <!-- Botão para Tipos de Estabelecimento -->
+    <button class="btn toggle-btn" onclick="toggleOptions('establishment-type-options')">Tipos de Estabelecimento</button>
+    <div id="establishment-type-options" class="link-group">
+      <a href="/establishment-types/create" class="link-btn">Criar</a>
+      <a href="/establishment-types/view" class="link-btn">Visualizar</a>
     </div>
   </div>
 </div>

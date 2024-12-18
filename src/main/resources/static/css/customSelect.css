@@ -1,0 +1,38 @@
+/* Container do Select */
+.client-selection {
+    margin: 20px auto;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    color: #333;
+    font-size: 1.1em;
+}
+
+.client-selection label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.client-selection select {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    font-size: 1em;
+    color: #555;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Efeito Hover */
+.client-selection select:hover {
+    border-color: #ff4d4d;
+}
+
+/* Estilização ao focar */
+.client-selection select:focus {
+    border-color: #d32f2f;
+    box-shadow: 0 0 8px rgba(211, 47, 47, 0.2);
+}

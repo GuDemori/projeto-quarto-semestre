@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Tipos de Estabelecimento</title>
+
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/tables.css}">
+
+  <script th:src="@{/js/script.js}"></script>
+
+</head>
+<body>
+<!-- Mensagens de sucesso ou erro -->
+<div th:if="${successMessage}" class="popup popup-success" th:text="${successMessage}"></div>
+<div th:if="${errorMessage}" class="popup popup-error" th:text="${errorMessage}"></div>
+
+<div class="container">
+  <h1>Lista de Tipos de Estabelecimento</h1>
+
+  <!-- Formulário de busca -->
+  <form method="get" action="/establishment-types/view">
+    <label for="search">Buscar Tipo de Estabelecimento:</label>
+    <input type="text" id="search" name="search" placeholder="Digite o nome" />
+    <button type="submit">Buscar</button>
+  </form>
+
+  <!-- Tabela de tipos de estabelecimento -->
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nome</th>
+      <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="type : ${types}">
+      <td th:text="${type.id}"></td>
+      <td th:text="${type.name}"></td>
+
+      <td class="action-buttons">
+        <a th:href="@{/establishment-types/edit/{id}(id=${type.id})}" class="btn-edit">Editar</a>
+        <a th:href="@{/establishment-types/delete/confirm/{id}(id=${type.id})}" class="btn-delete">Excluir</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Link para voltar ao Dashboard -->
+  <div class="button-group">
+    <a href="/user/dashboard" class="btn">Voltar ao Dashboard</a>
+  </div>
+</div>
+</body>
+</html>

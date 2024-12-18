@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Confirmação de Exclusão</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/delete-confirmation.css}">
+</head>
+<body>
+<div class="delete-container">
+  <h1>Excluir Tipo de Estabelecimento</h1>
+  <h2>Tem certeza que deseja excluir o tipo de estabelecimento?</h2>
+
+  <!-- Exibe informações do tipo de estabelecimento -->
+  <div class="content-wrapper">
+    <div>
+      <strong>Nome:</strong>
+      <span th:text="${establishmentType.name}"></span>
+    </div>
+  </div>
+
+  <!-- Formulário de exclusão -->
+  <form class="delete-form" th:action="@{/establishment-types/delete/{id}(id=${establishmentType.id})}" method="post">
+    <button type="submit" class="btn-delete">CONFIRMAR EXCLUSÃO</button>
+    <a th:href="@{/establishment-types/view}" class="btn-cancel">CANCELAR</a>
+  </form>
+</div>
+</body>
+</html>

@@ -1,35 +1,67 @@
 /* Formulários */
-form {
+.delete-form {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
 }
 
-input[type="text"], input[type="number"], textarea {
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 4px;
-    width: 100%;
-    max-width: 400px;
-    font-size: 16px;
-    box-sizing: border-box;
+.delete-form button,
+.delete-form .btn-cancel {
+    margin: 0;
+    width: auto;
+    padding: 12px 20px;
+    text-align: center;
 }
 
-button {
-    background-color: #D32F2F;
+/* Botão de exclusão */
+.btn-delete {
+    background-color: #d32f2f;
     color: #fff;
     border: none;
-    padding: 12px 20px;
-    width: 100%;
-    max-width: 400px;
-    font-size: 18px;
     cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s;
 }
 
-button:hover {
-    background-color: #B71C1C;
+.btn-delete:hover {
+    background-color: #b71c1c;
+    transform: scale(1.05);
+}
+
+/* Botão de cancelamento */
+.btn-cancel {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.btn-cancel:hover {
+    text-decoration: underline;
+    color: #0056b3;
+}
+
+/* Ajustes do conteúdo */
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 20px 0;
+    font-size: 1.1rem;
+}
+
+.content-wrapper strong {
+    margin-right: 5px;
+    color: #333;
+}
+
+.delete-heading {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    color: #333;
+    font-weight: bold;
+    text-align: center;
 }

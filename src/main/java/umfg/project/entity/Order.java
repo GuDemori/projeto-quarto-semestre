@@ -1,6 +1,7 @@
 package umfg.project.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -20,10 +21,24 @@ public class Order {
     private Client client;
 
     private LocalDateTime orderDate;
+
     private Double totalValue;
+
     private String status;
 
+    @Transient
+    private Integer stockQuantity;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<OrderItem> items = new ArrayList<>();
+
+
     @ManyToMany
+    @JoinTable(
+            name = "order_product", // Nome da tabela intermediária
+            joinColumns = @JoinColumn(name = "order_id"), // FK da tabela Order
+            inverseJoinColumns = @JoinColumn(name = "product_id") // FK da tabela Product
+    )
     private List<Product> products;
 
     public Long getId() { return id; }
@@ -46,4 +61,10 @@ public class Order {
 
     public List<Product> getProducts() { return products; }
     public void setProducts(List<Product> products) { this.products = products; }
+
+    public Integer getStockQuantity() { return stockQuantity; }
+    public void setStockQuantity(Integer stockQuantity) { this.stockQuantity = stockQuantity; }
+
+    public List<OrderItem> getItems() { return items; }
+    public void setItems(List<OrderItem> items) { this.items = items; }
 }

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Criar Tipo de Estabelecimento</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}"/>
+  <link rel="stylesheet" th:href="@{/css/login.css}"/>
+</head>
+<body>
+<div class="form-container">
+  <h1>Criar Tipo de Estabelecimento</h1>
+  <form th:action="@{/establishment-types/create}" method="post">
+    <label for="name">Nome:</label>
+    <input type="text" id="name" name="name" placeholder="Digite o nome do tipo" required>
+    <button type="submit">Salvar</button>
+  </form>
+</div>
+</body>
+</html>

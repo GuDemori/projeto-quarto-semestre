@@ -3,8 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>Visualizar Clientes</title>
+
   <link rel="stylesheet" th:href="@{/css/style.css}">
   <link rel="stylesheet" th:href="@{/css/tables.css}">
+
 </head>
 <body>
 <div th:if="${successMessage}" class="popup popup-success" th:text="${successMessage}"></div>
@@ -12,6 +14,44 @@
 
 <div class="container">
   <h1>Lista de Clientes</h1>
+  <form method="get" action="/clients/view">
+    <!-- Outros campos de filtro -->
+    <a th:href="@{/clients/export-pdf(id=${param.id}, name=${param.name})}"
+       class="export-link-box">
+      Exportar PDF
+    </a>
+    <div>
+      <label for="id">ID do cliente:</label>
+      <input type="text" id="id" name="id" placeholder="ID do cliente">
+    </div>
+
+    <div>
+      <label for="establishmentName">Nome do Estabelecimento:</label>
+      <input type="text" id="establishmentName" name="establishmentName" placeholder="Nome do estabelecimento">
+    </div>
+
+    <div>
+      <label for="city">Cidade do cliente:</label>
+      <input type="text" id="city" name="city" placeholder="Cidade do cliente">
+    </div>
+
+    <div>
+      <label>Tipo de Estabelecimento:</label><br/>
+      <div th:each="type : ${establishmentTypes}">
+        <input type="checkbox"
+               th:id="'type-' + ${type.id}"
+               th:name="establishmentTypeIds"
+               th:value="${type.id}"
+               th:checked="${param.establishmentTypeIds != null && param.establishmentTypeIds.contains(type.id)}" />
+        <label th:for="'type-' + ${type.id}" th:text="${type.name}"></label>
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-danger">FILTRAR</button>
+  </form>
+
+  <div th:if="${successMessage}" class="popup popup-success" th:text="${successMessage}"></div>
+  <div th:if="${errorMessage}" class="popup popup-error" th:text="${errorMessage}"></div>
 
   <!-- Tabela de Clientes -->
   <table>
@@ -31,13 +71,19 @@
       <td th:text="${client.establishmentName}"></td>
       <td th:text="${client.city}"></td>
       <td th:text="${client.address}"></td>
-      <td th:text="${client.establishmentType}"></td>
+      <td>
+        <ul th:if="${client.establishmentTypes != null}">
+          <li th:each="type : ${client.establishmentTypes}" th:text="${type.name}"></li>
+        </ul>
+        <span th:if="${client.establishmentTypes == null or client.establishmentTypes.isEmpty()}">
+        Não definido
+    </span>
+      </td>
       <td class="action-buttons">
         <a th:href="@{/clients/edit/{id}(id=${client.id})}" class="btn-edit">Editar</a>
+      </td>
       <td class="action-buttons">
         <a th:href="@{/clients/delete/confirm/{id}(id=${client.id})}" class="btn-delete">Excluir</a>
-      </td>
-
       </td>
     </tr>
     </tbody>

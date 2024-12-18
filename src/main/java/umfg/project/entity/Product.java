@@ -1,10 +1,9 @@
 package umfg.project.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+
+import java.util.List;
 
 @Entity
 @Table(name = "product_entity")
@@ -21,10 +20,6 @@ public class Product {
     @Size(max = 255, message = "A descrição não pode exceder 255 caracteres.")
     private String description;
 
-    @Size(max = 255, message = "O tipo de estabelecimento não pode exceder 255 caracteres.")
-    private String establishmentType;
-
-
     @NotNull(message = "A quantidade em estoque não pode ser nula.")
     @Min(value = 0, message = "A quantidade não pode ser menor que zero")
     private int stockQuantity;
@@ -33,11 +28,31 @@ public class Product {
     @DecimalMin(value = "0.0", inclusive = true, message = "O preço não pode ser menor que 0")
     private Double price;
 
-    public Product(String name, String description, Integer stockQuantity, String establishmentType, Double price) {
+    @Transient
+    private int quantity;
+
+    @ManyToMany
+    @JoinTable(
+            name = "product_establishment_type",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "establishment_type_id")
+    )
+    private List<EstablishmentType> establishmentTypes;
+
+    // Getter e Setter
+    public List<EstablishmentType> getEstablishmentTypes() {
+        return establishmentTypes;
+    }
+
+    public void setEstablishmentTypes(List<EstablishmentType> establishmentTypes) {
+        this.establishmentTypes = establishmentTypes;
+    }
+
+
+    public Product(String name, String description, Integer stockQuantity, Double price) {
         this.name = name;
         this.description = description;
         this.stockQuantity = stockQuantity;
-        this.establishmentType = establishmentType;
         this.price = price;
     }
 
@@ -55,9 +70,20 @@ public class Product {
     public Integer getStockQuantity() { return stockQuantity; }
     public void setStockQuantity(Integer stockQuantity) { this.stockQuantity = stockQuantity; }
 
-    public String getEstablishmentType() { return establishmentType; }
-    public void setEstablishmentType(String establishmentType) { this.establishmentType = establishmentType; }
+
 
     public Double getPrice() { return price; }
     public void setPrice(Double price) { this.price = price; }
+
+    public void setStockQuantity(int stockQuantity) {
+        this.stockQuantity = stockQuantity;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 }

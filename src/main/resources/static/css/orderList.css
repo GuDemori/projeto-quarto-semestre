@@ -1,0 +1,75 @@
+/* orderList.css */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background: #f8f8f8;
+  color: #333;
+}
+
+.order-list-wrapper {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #fff;
+  border-radius: 6px;
+  padding: 20px;
+}
+
+/* Título no topo */
+.order-list-wrapper h1 {
+  color: #c62828;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+/* Tabela */
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.orders-table thead {
+  background-color: #f0f0f0;
+}
+
+.orders-table th, .orders-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.orders-table th {
+  font-weight: bold;
+}
+
+.orders-table tr:hover {
+  background: #fafafa;
+}
+
+.orders-table a {
+  color: #c62828;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.orders-table a:hover {
+  text-decoration: underline;
+}
+
+.back-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #c62828;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.back-btn:hover {
+  background-color: #b71c1c;
+}

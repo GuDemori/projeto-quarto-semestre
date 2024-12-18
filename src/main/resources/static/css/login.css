@@ -1,0 +1,65 @@
+/* Caixa centralizada para Login e Registro */
+.form-container {
+    max-width: 500px;
+    margin: 50px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.form-container .logo {
+    display: block;
+    margin: 0 auto 20px;
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+}
+
+.form-container h1 {
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.form-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.form-container button {
+    width: 100%;
+    padding: 12px;
+    background-color: #d32f2f;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.form-container button:hover {
+    background-color: #b71c1c;
+}
+
+.form-container .additional-links {
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+.form-container .additional-links a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.form-container .additional-links a:hover {
+    text-decoration: underline;
+}

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Pedido</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/forms.css}">
+</head>
+<body>
+<div class="container">
+  <h1>EDITAR PEDIDO</h1>
+
+  <form th:action="@{'/orders/edit/' + ${order.id}}" method="post">
+    <label>ID do Pedido:</label>
+    <input type="text" th:value="${order.id}" readonly/>
+
+    <!-- Campo Status -->
+    <label>Status:</label>
+    <select name="status">
+      <option value="Em espera" th:selected="${order.status == 'Em espera'}">Em espera</option>
+      <option value="À caminho" th:selected="${order.status == 'À caminho'}">À caminho</option>
+      <option value="Entregue" th:selected="${order.status == 'Entregue'}">Entregue</option>
+    </select>
+
+
+    <!-- Caso queira editar Items ou Products, teria outro loop ou algo do tipo -->
+
+    <button type="submit" class="save-btn">Salvar Alterações</button>
+  </form>
+
+  <a th:href="@{'/orders/list'}" class="back-btn">Voltar</a>
+</div>
+</body>
+</html>

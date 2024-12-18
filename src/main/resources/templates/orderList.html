@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Pedidos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" th:href="@{/css/orderList.css}">
+</head>
+<body>
+<div class="order-list-wrapper">
+    <h1>LISTA DE PEDIDOS</h1>
+
+    <!-- Formulário de Filtros -->
+    <form method="get" th:action="@{/orders/view}" class="filter-form">
+        <div class="filter-row">
+            <label for="city">Cidade:</label>
+            <input type="text" id="city" name="city" placeholder="Digite a cidade">
+
+            <label for="startDate">Data Inicial:</label>
+            <input type="date" id="startDate" name="startDate">
+
+            <label for="endDate">Data Final:</label>
+            <input type="date" id="endDate" name="endDate">
+
+            <label for="clientId">Cliente:</label>
+            <select id="clientId" name="clientId">
+                <option value="" selected>Todos os Clientes</option>
+                <option th:each="client : ${clients}"
+                        th:value="${client.id}"
+                        th:text="${client.establishmentName}"></option>
+            </select>
+
+            <button type="submit" class="filter-btn">Filtrar</button>
+        </div>
+    </form>
+
+    <div style="margin-top: 10px;">
+        <a th:href="@{/orders/export-pdf(city=${city}, startDate=${startDate}, endDate=${endDate}, clientId=${clientId})}"
+           style="color: #c62828; font-weight: bold; text-decoration: none;">
+            Exportar PDF
+        </a>
+    </div>
+
+    <!-- Tabela de Pedidos -->
+    <table class="orders-table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>CLIENTE</th>
+            <th>DATA</th>
+            <th>TOTAL</th>
+            <th>AÇÕES</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.client.establishmentName}"></td>
+            <td th:text="${#temporals.format(order.orderDate, 'dd/MM/yyyy')}"></td>
+            <td th:text="|R$ ${order.totalValue}|"></td>
+            <td>
+                <a th:href="@{'/orders/view/' + ${order.id}}">Visualizar</a> |
+                <a th:href="@{'/orders/edit/' + ${order.id}}">Editar</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Botão de Voltar -->
+    <div style="margin-top: 20px;">
+        <a href="/user/dashboard" class="back-btn">Voltar</a>
+    </div>
+</div>
+</body>
+</html>

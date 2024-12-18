@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Visualizar Produtos</title>
+
     <link rel="stylesheet" th:href="@{/css/style.css}">
     <link rel="stylesheet" th:href="@{/css/tables.css}">
+
     <script th:src="@{/js/script.js}"></script>
+    <script th:src="@{/js/order.js}"></script>
 </head>
 <body>
 <div th:if="${successMessage}" class="popup popup-success" th:text="${successMessage}"></div>
@@ -14,16 +17,37 @@
 <div class="container">
     <h1>Lista de Produtos</h1>
 
-    <!-- Formulário de busca -->
+    <!-- Formulário de Filtro -->
     <form method="get" action="/products/view">
-        <label for="search">Buscar Produto:</label>
-        <input type="text" id="search" name="search" placeholder="Digite nome ou ID" />
-        <button type="submit">Buscar</button>
-    </form>
+        <div>
+            <a th:href="@{/products/export-pdf(id=${param.id}, name=${param.name}, establishmentTypeIds=${param.establishmentTypeIds})}"
+               class="export-link-box">
+                Exportar PDF
+            </a>
+        </div>
+        <div class="filter-form">
+            <label for="id">ID:</label>
+            <input type="number" id="id" name="id" placeholder="ID do produto" th:value="${param.id}" />
 
-    <!-- Exibir mensagens de sucesso ou erro -->
-    <div th:if="${successMessage}" class="popup popup-success" th:text="${successMessage}"></div>
-    <div th:if="${errorMessage}" class="popup popup-error" th:text="${errorMessage}"></div>
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" placeholder="Nome do produto" th:value="${param.name}" />
+
+            <div>
+                <span>Tipo de Estabelecimento:</span><br/>
+                <div th:each="type : ${establishmentTypes}" class="checkbox-item">
+                    <input type="checkbox"
+                           th:id="'type-' + ${type.id}"
+                           th:name="establishmentTypeIds"
+                           th:value="${type.id}"
+                           th:checked="${param.establishmentTypeIds != null && param.establishmentTypeIds.contains(type.id)}" />
+                    <label th:for="'type-' + ${type.id}" th:text="${type.name}"></label>
+                </div>
+            </div>
+
+            <br/>
+            <button type="submit" class="btn-filter">Buscar</button>
+        </div>
+    </form>
 
     <!-- Tabela de produtos -->
     <table>
@@ -45,16 +69,22 @@
             <td th:text="${product.description}"></td>
             <td th:text="${product.stockQuantity}"></td>
             <td th:text="${product.price}"></td>
-            <td th:text="${product.establishmentType}"></td>
+            <td>
+                <ul>
+                    <li th:each="type : ${product.establishmentTypes}" th:text="${type.name}"></li>
+                </ul>
+            </td>
             <td class="action-buttons">
                 <a th:href="@{/products/edit/{id}(id=${product.id})}" class="btn-edit">Editar</a>
-                <a th:href="@{/products/delete/{id}(id=${product.id})}" class="btn-delete">Excluir</a>
+            </td>
+            <td class="action-buttons">
+                <a th:href="@{/products/delete/confirm/{id}(id=${product.id})}" class="btn-delete">Excluir</a>
             </td>
         </tr>
         </tbody>
     </table>
 
-    <!-- Link para voltar ao Dashboard -->
+    <!-- Link para voltar -->
     <div class="button-group">
         <a href="/user/dashboard" class="btn">Voltar ao Dashboard</a>
     </div>

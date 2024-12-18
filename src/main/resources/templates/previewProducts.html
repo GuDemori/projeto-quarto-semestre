@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>PRÉVIA DO PEDIDO</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <link rel="stylesheet" th:href="@{/css/previewProducts.css}">
+</head>
+<body>
+<div th:if="${errorMessage}" class="popup popup-error" th:text="${errorMessage}"></div>
+
+<div class="preview-container">
+  <h1 th:text="${orderId} != null ? 'EDITAR PEDIDO' : 'PRÉVIA DO PEDIDO'"></h1>
+
+  <h3>Order Preview</h3>
+  <p><strong>Total:</strong> $<span th:text="${totalValue}"></span></p>
+
+  <form method="post" th:action="@{/orders/create}">
+    <input type="hidden" name="clientId" th:value="${clientId}">
+    <input type="hidden" name="status" th:value="${status}">
+
+    <div th:each="product : ${products}">
+      <input type="hidden" name="products" th:value="${product.id}">
+      <label>
+        <span th:text="${product.name}"></span> -
+        <span th:text="|$${product.price}|"></span> -
+        Quantity: <input type="number" name="quantities" min="1" value="1" required>
+      </label>
+      <br>
+    </div>
+
+    <p><strong>Total:</strong> $<span th:text="${totalValue}"></span></p>
+
+    <button type="submit">Confirm Order</button>
+  </form>
+
+</div>
+</body>
+</html>
